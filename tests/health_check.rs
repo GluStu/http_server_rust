@@ -6,10 +6,10 @@ async fn  health_check_test() {
     let address: String = spawn_app().await;
     let client = Client::new();
     let response: reqwest::Response = client
-                                    .get(&format!("{}/health_check", &address))
-                                    .send()
-                                    .await
-                                    .expect("req exec fail");
+                                      .get(&format!("{}/health_check", &address))
+                                      .send()
+                                      .await
+                                      .expect("req exec fail");
     assert!(response.status().is_success());
     assert_eq!(Some(0), response.content_length());
 }
@@ -28,11 +28,11 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
 
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
     let response: reqwest::Response = client
-                                        .post(&format!("{}/subscriptions", &app_addr))
-                                        .body(body)
-                                        .send()
-                                        .await
-                                        .expect("Failed to execute req");
+                                      .post(&format!("{}/subscriptions", &app_addr))
+                                      .body(body)
+                                      .send()
+                                      .await
+                                      .expect("Failed to execute req");
     assert_eq!(200, response.status().as_u16())
 }
 
