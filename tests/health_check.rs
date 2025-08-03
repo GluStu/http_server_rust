@@ -5,7 +5,7 @@ use reqwest::Client;
 async fn  health_check_test() {
     let address: String = spawn_app().await;
     let client = Client::new();
-    let response = client
+    let response: reqwest::Response = client
                                     .get(&format!("{}/health_check", &address))
                                     .send()
                                     .await
@@ -27,12 +27,12 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
     let client = Client::new();
 
     let body = "name=le%20guin&email=ursula_le_guin%40gmail.com";
-    let response = client
-                            .post(&format!("{}/subscriptions", &app_addr))
-                            .body(body)
-                            .send()
-                            .await
-                            .expect("Failed to execute req");
+    let response: reqwest::Response = client
+                                        .post(&format!("{}/subscriptions", &app_addr))
+                                        .body(body)
+                                        .send()
+                                        .await
+                                        .expect("Failed to execute req");
     assert_eq!(200, response.status().as_u16())
 }
 
@@ -40,7 +40,7 @@ async fn subscribe_returns_a_200_for_valid_form_data() {
 async fn subscribe_returns_a_400_when_data_is_missing() {
     let app_addr = spawn_app().await;
     let client = Client::new();
-    let test_cases = vec![("name=le%20guin", "missing the email"),
+    let test_cases: Vec<(&'static str, &'static str)> = vec![("name=le%20guin", "missing the email"),
                                                             ("email=ursula_le_guin%40gmail.com", "missing the name"),
                                                             ("", "missing both name and email")];
 
