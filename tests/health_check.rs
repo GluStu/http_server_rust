@@ -45,13 +45,13 @@ async fn subscribe_returns_a_400_when_data_is_missing() {
                                                             ("", "missing both name and email")];
 
     for (body, msg) in test_cases{
-        let resp = client
-                            .post(format!("{}/subscriptions", &app_addr))
-                            .header("Content-Type", "application/x-www-form-urlencoded")
-                            .body(body)
-                            .send()
-                            .await
-                            .expect("Failed to execute req");
+        let resp: reqwest::Response = client
+                                      .post(format!("{}/subscriptions", &app_addr))
+                                      .header("Content-Type", "application/x-www-form-urlencoded")
+                                      .body(body)
+                                      .send()
+                                      .await
+                                      .expect("Failed to execute req");
         assert_eq!(400, resp.status().as_u16(), "The API did not fail with 400 Bad Request when the payload was {msg}.");
     }
 }
