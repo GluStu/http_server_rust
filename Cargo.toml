@@ -8,6 +8,18 @@ actix-web = "4.0.0"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 serde = { version = "1.0", features = ["derive"] }
 
+[dependencies.sqlx]
+version = "0.5.7"
+default-features = false
+features = [
+"runtime-actix-rustls",
+"macros",
+"postgres",
+"uuid",
+"chrono",
+"migrate"
+]
+
 [lib]
 path = "src/lib.rs"
 [[bin]]
