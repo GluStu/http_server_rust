@@ -1,5 +1,6 @@
 use std::{net::TcpListener};
 use reqwest::Client;
+use rust_mail::startup::run;
 
 #[tokio::test]
 async fn  health_check_test() {
@@ -17,7 +18,7 @@ async fn  health_check_test() {
 async fn spawn_app() -> String {
     let listner = TcpListener::bind("127.0.0.1:0").expect("binding failed");
     let port = listner.local_addr().unwrap().port();
-    let server = rust_mail::run(listner).await.expect("failed to bind");
+    let server = run(listner).await.expect("failed to bind");
     let _ = tokio::spawn(server);
     return format!("http://127.0.0.1:{}", port);
 }

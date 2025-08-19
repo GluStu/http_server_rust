@@ -1,5 +1,5 @@
 use std::io::Result;
-use rust_mail::run;
+use rust_mail::startup::run;
 use std::net::TcpListener;
 
 #[tokio::main]
